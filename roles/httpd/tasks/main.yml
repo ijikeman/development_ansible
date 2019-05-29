@@ -11,3 +11,53 @@
 - include_role:
     name: common_tasks
     tasks_from: flush_handlers.yml
+
+---
+- name: Set SSL Certificate
+  template:
+    src: ssl.mdomain.crt.j2
+    dest: /etc/ssl/ssl.mdomain.crt
+    owner: root
+    group: root
+    mode: 0400
+  notify: "{{ NAME_SERVICE}} reloaded {{ daemon_name }}"
+
+- name: Set SSL Certificate Key
+  template:
+    src: ssl.mdomain.key.j2
+    dest: /etc/ssl/ssl.mdomain.key
+    owner: root
+    group: root
+    mode: 0400
+  notify: "{{ NAME_SERVICE}} reloaded {{ daemon_name }}"
+
+- name: Set conf.d
+  template:
+    src: rundeck.conf.j2
+    dest: /etc/nginx/conf.d/rundeck.conf
+    owner: root
+    group: root
+    mode: 0644
+  notify: "{{ NAME_SERVICE}} reloaded {{ daemon_name }}"
+
+- name: set facts allow http on firewalld
+  set_fact:
+    service: "http"
+  register: firewalld_values
+
+- include_role:
+    name: common_tasks
+    tasks_from: firewalld.yml
+  with_items:
+    - "{{ firewalld_values.ansible_facts }}"
+
+- name: set facts allow https on firewalld
+  set_fact:
+    service: "https"
+  register: firewalld_values
+
+- include_role:
+    name: common_tasks
+    tasks_from: firewalld.yml
+  with_items:
+    - "{{ firewalld_values.ansible_facts }}"
