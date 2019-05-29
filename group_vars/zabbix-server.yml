@@ -1,1 +1,9 @@
 URL_REPO: https://repo.zabbix.com/zabbix/
+
+DBUSER_ZABBIX: "zabbix"
+DBPASS_ZABBIX: "zabbix"
+DBNAME_ZABBIX: "zabbix"
+DBPRIV_ZABBIX: "{{ DBNAME_ZABBIX }}.*:ALL"
+
+VERSION_ZABBIX_SERVER: 4.2
+VERSION_MINOR_ZABBIX_SERVER: 1
