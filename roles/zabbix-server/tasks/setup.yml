@@ -16,6 +16,6 @@
     state: present
 
 - name: Setup Database Schema
-  command: "zcat /usr/share/doc/zabbix-server-mysql*/create.sql.gz | mysql -u{{ DBUSER_ZABBIX }} -p{{ DBPASS_ZABBIX }} {{ DBNAME_ZABBIX }}"
+  command: "zcat /usr/share/doc/zabbix-server-mysql-{{ VERSION_ZABBIX_SERVER }}/create.sql.gz | mysql -u{{ DBUSER_ZABBIX }} -p{{ DBPASS_ZABBIX }} {{ DBNAME_ZABBIX }}"
 
 - include: setup_{{ ansible_os_family }}_{{ ansible_distribution_major_version }}.yml
