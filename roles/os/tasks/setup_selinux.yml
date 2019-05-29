@@ -1,0 +1,33 @@
+---
+- name: Install python module for SELinux
+  yum:
+    name: libselinux-python
+    state: installed
+
+- name: Get SELinux Status
+  shell: getenforce
+  register: selinux_status
+  changed_when: False
+  tags: selinux
+  become: True
+
+- name: Disabled Selinux
+  selinux:
+    state: disabled
+  when: selinux_status.stdout == 'Enforcing'
+  tags: selinux
+  become: True
+
+- name: Rebooted
+  shell: "sleep 2 && reboot"
+  async: 1
+  poll: 0
+  when: selinux_status.stdout == 'Enforcing'
+  tags: selinux
+  become: True
+
+- name: Wait for Reboot
+  local_action: wait_for host={{ inventory_hostname }} port=22 delay=30
+  when: selinux_status.stdout == 'Enforcing'
+  tags: selinux
+  become: False
