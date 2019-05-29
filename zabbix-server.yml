@@ -1,0 +1,7 @@
+---
+- name: zabbix-server
+  hosts: zabbix-server
+  user: root
+  roles:
+    - mariadb-server
+    - zabbix-server
