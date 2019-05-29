@@ -4,6 +4,7 @@
   user: root
   roles:
     - httpd
+    - php
     - mariadb-server
     - zabbix-server
     - zabbix-agent
