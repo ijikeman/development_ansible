@@ -1,9 +1,9 @@
 ---
-- name: Setup php.ini
+- name: Setup Config
   template:
     src: php.ini
     dest: /etc/php.ini
     owner: 'root'
-    group": 'root'
+    group: 'root'
     mode: '0644'
-  notify: Systemd restarted {{ daemon_name }}
+  notify: Service restarted {{ daemon_name }}
