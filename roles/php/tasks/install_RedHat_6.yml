@@ -1,0 +1,5 @@
+---
+- name: Install
+  yum:
+    name: php
+  notify: Service restarted {{ daemon_name }}

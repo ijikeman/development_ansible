@@ -1,9 +1,2 @@
 ---
-- name: Install
-  yum:
-    name: php
-
-- name: Daemon Restarted
-  include_role:
-    name: common_tasks
-    tasks_from: service_restarted_{{ ansible_os_family }}_{{ ansible_distribution_major_version }}.yml
+- include: install_{{ ansible_os_family }}_{{ ansible_distribution_major_version }}.yml

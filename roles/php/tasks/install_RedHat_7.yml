@@ -1,0 +1,5 @@
+---
+- name: Install
+  yum:
+    name: php
+  notify: Systemd restarted {{ daemon_name }}
