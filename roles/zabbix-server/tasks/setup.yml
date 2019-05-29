@@ -1,0 +1,21 @@
+---
+- name: Install MYSQL-Python
+  yum:
+    name: MySQL-python
+
+- name: Create DB To Mysql
+  mysql_db:
+    name: "{{ DBNAME_ZABBIX }}"
+
+- name: Create DBUser To Mysql
+  mysql_user:
+    name: "{{ DBUSER_ZABBIX }}"
+    host: "localhost"
+    password: "{{ DBPASS_ZABBIX }}"
+    priv: "{{ DBPRIV_ZABBIX }}"
+    state: present
+
+- name: Setup Database Schema
+  command: "zcat /usr/share/doc/zabbix-server-mysql*/create.sql.gz | mysql -u{{ DBUSER_ZABBIX }} -p{{ DBPASS_ZABBIX }} {{ DBNAME_ZABBIX }}"
+
+- include: setup_{{ ansible_os_family }}_{{ ansible_distribution_major_version }}.yml

@@ -5,7 +5,11 @@
 
 - name: Install Zabbix-Server
   yum:
-    name: zabbix-server
+    name: "{{ item }}"
+  with_items:
+      - zabbix-server
+      - zabbix-server-mysql
+      - zabbix-web-mysql
 
 - name: Daemon Started
   include_role:

@@ -1,0 +1,13 @@
+---
+- name: Install Server
+  yum:
+    name: httpd
+
+- name: Daemon Started
+  include_role:
+    name: common_tasks
+    tasks_from: service_started_{{ ansible_os_family }}_{{ ansible_distribution_major_version }}.yml
+
+- include_role:
+    name: common_tasks
+    tasks_from: flush_handlers.yml
