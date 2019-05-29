@@ -12,7 +12,6 @@
     name: common_tasks
     tasks_from: flush_handlers.yml
 
----
 - name: Set SSL Certificate
   template:
     src: ssl.mdomain.crt.j2
