@@ -3,7 +3,6 @@
   hosts: zabbix-server
   user: root
   roles:
-    - os
     - mariadb-server
     - zabbix-server
   vars:

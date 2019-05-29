@@ -6,4 +6,4 @@
     owner: 'root'
     group: 'root'
     mode: '0644'
-  notify: Service Restarted {{ daemon_name }}
+  notify: Service restarted {{ daemon_name }}
