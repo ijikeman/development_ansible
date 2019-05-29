@@ -3,5 +3,9 @@
   hosts: zabbix-server
   user: root
   roles:
+    - os
     - mariadb-server
     - zabbix-server
+  vars:
+    VERSION_ZABBIX_SERVER: 4.2
+    VERSION_MINOR_ZABBIX_SERVER: 1
