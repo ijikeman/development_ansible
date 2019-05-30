@@ -3,8 +3,8 @@
   hosts: zabbix-server
   user: root
   roles:
-    - httpd
-    - php
     - mariadb-server
     - zabbix-server
     - zabbix-agent
+    - httpd
+    - php
