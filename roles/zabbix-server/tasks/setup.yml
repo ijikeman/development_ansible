@@ -19,8 +19,22 @@
   yum:
     name: gzip
 
+- name: check if Setup Database Scheme
+  shell: mysql -u{{ DBUSER_ZABBIX }} -p{{ DBPASS_ZABBIX }} {{ DBNAME_ZABBIX }} -e 'SHOW TABLES;' | grep user
+  register: dbstatus
+  changed_when: False
+  failed_when: False
+  ignore_errors: True
+
 - name: Setup Database Schema
-  shell: "zcat /usr/share/doc/zabbix-server-mysql-{{ VERSION_ZABBIX_SERVER }}*/create.sql.gz | mysql -u{{ DBUSER_ZABBIX }} -p{{ DBPASS_ZABBIX }} {{ DBNAME_ZABBIX }}"
+  mysql_db:
+    state: import
+    name: "{{ DBNAME_ZABBIX }}"
+    login_user: "{{ DBUSER_ZABBIX }}"
+    login_password: "{{ DBPASS_ZABBIX }}"
+    login_password: "{{ DBPASS_ZABBIX }}"
+    target: "/usr/share/doc/zabbix-server-mysql-{{ VERSION_ZABBIX_SERVER }}.2/create.sql.gz"
+  when: dbstatus.rc != 0
 
 - name: Setup Permission Assets Directory
   file:
