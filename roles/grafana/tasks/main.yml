@@ -1,0 +1,31 @@
+---
+- name: Install Grafana
+  yum:
+    name: "{{ URL_RPM_GRAFANA }}"
+
+- name: Set Plugin Grafana
+  command: grafana-cli plugins install alexanderzobnin-zabbix-app
+  notify: Systemd restarted {{ daemon_name }}
+
+- name: set facts allow http on firewalld
+  set_fact:
+    service: "http"
+  register: firewalld_values
+
+- include_role:
+    name: common_tasks
+    tasks_from: firewalld.yml
+  with_items:
+    - "{{ firewalld_values.ansible_facts }}"
+
+- name: set facts allow https on firewalld
+  set_fact:
+    port: '3000/tcp'
+  register: firewalld_values
+
+- include_role:
+    name: common_tasks
+    tasks_from: firewalld.yml
+  with_items:
+    - "{{ firewalld_values.ansible_facts }}"
+

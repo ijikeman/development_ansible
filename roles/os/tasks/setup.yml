@@ -1,0 +1,13 @@
+---
+- name: Set Osaka Fortinet Cert to OS
+  copy:
+    src: Osaka_Fortinet_CA_SSL.cer
+    dest: /usr/share/pki/ca-trust-source/anchors/Osaka_Fortinet_CA_SSL.cer
+    owner: 'root'
+    group: 'root'
+    mode: 0400
+  notify: Update Server Certs
+
+- include_role:
+    name: common_tasks
+    tasks_from: flush_handlers.yml

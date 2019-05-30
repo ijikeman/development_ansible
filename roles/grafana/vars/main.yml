@@ -1,0 +1,4 @@
+daemon_name: grafana-server
+VERSION_GRAFANA: 6.2.1
+VERSION_MINER_GRAFANA: 1
+URL_RPM_GRAFANA: https://dl.grafana.com/oss/release/grafana-{{ VERSION_GRAFANA }}-{{ VERSION_MINER_GRAFANA }}.x86_64.rpm 

@@ -1,0 +1,2 @@
+- name: Update Server Certs
+  command: update-ca-trust extract
