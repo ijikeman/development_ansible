@@ -3,3 +3,7 @@
   yum:
     name: php
   notify: Systemd restarted {{ daemon_name }}
+
+- include_role:
+    name: common_tasks
+    tasks_from: flush_handlers.yml
